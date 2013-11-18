@@ -67,7 +67,7 @@
                 'click'        : 'openStory',
                 'click .image' : 'openImage'
             },
-        initialize  : function() {
+            initialize  : function() {
                 // binding events:
                 this.listenTo(this.model, 'change', this.render);
             },
@@ -90,8 +90,13 @@
             // to the DOM. This is for adding
             // css classes to the elements
             beforeAppend: function( $html ) {
-                console.log ( "html isn't appended yet.");
-                this.$el.addClass('appended'); // <- example
+                var id, countImages, firstImageRatio;
+                id = this.model.get('id');
+                countImages = this.model.get('images').length;
+                firstImageRatio = this.model.get('images')[0] ? this.model.get('images')[0].ratio : 1.5
+                this.$el.addClass('story' + id.toString());      // <- add a class to style each story different
+                this.$el.addClass('i' + countImages.toString()); // <- add a class for the image count
+                this.$el.addClass( firstImageRatio > 1.1 ? 'heroPortrait' : 'heroLandscape' );
             },
 
             // event handler:
